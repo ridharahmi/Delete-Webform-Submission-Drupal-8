@@ -1,0 +1,9 @@
+name: 'Delete Webform Submission'
+description: 'This module cab be used to delete the webform submissions using date'
+package: Custom
+type: module
+core: 8.x
+version: 8.x
+
+dependencies:
+  - webform

@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * Implements hook_cron().
+ */
+function delete_webform_submission_cron()
+{
+    $lastDayTimestamp = strtotime('-10 days');
+    $lastMonthTimestamp = strtotime('-1 month');
+    $lastYearTimestamp = strtotime('-1 year');
+
+
+    $query = \Drupal::entityQuery('webform_submission')
+        ->condition('webform_id', 'contact')
+        ->condition('created', $lastYearTimestamp, '<=')
+        ->accessCheck(FALSE);
+    $result = $query->execute();
+    foreach ($result as $item) {
+        $submission = \Drupal\webform\Entity\WebformSubmission::load($item);
+        $submission->delete();
+    }
+
+}
+
